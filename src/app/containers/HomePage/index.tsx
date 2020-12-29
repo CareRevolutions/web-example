@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { NavBar } from '../NavBar';
-import { Masthead } from './Masthead';
-import { Features } from './Features';
 import { PageWrapper } from 'app/components/PageWrapper';
+import { Link } from 'app/components/Link';
 
 export function HomePage() {
   return (
@@ -15,10 +13,9 @@ export function HomePage() {
           content="A React Boilerplate application homepage"
         />
       </Helmet>
-      <NavBar />
       <PageWrapper>
-        <Masthead />
-        <Features />
+        <h1>CareRev Sample App</h1>
+        <Link to="/countries">Show Countries</Link>
       </PageWrapper>
     </>
   );

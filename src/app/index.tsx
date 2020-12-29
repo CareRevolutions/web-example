@@ -14,6 +14,7 @@ import { GlobalStyle } from '../styles/global-styles';
 
 import { HomePage } from './containers/HomePage/Loadable';
 import { NotFoundPage } from './containers/NotFoundPage/Loadable';
+import { Countries } from './containers/Countries';
 import { useTranslation } from 'react-i18next';
 
 export function App() {
@@ -21,15 +22,18 @@ export function App() {
   return (
     <BrowserRouter>
       <Helmet
-        titleTemplate="%s - React Boilerplate"
-        defaultTitle="React Boilerplate"
+        titleTemplate="%s - CareRev Sample App"
+        defaultTitle="CareRev Sample App"
         htmlAttributes={{ lang: i18n.language }}
-      >
-        <meta name="description" content="A React Boilerplate application" />
-      </Helmet>
+      ></Helmet>
 
       <Switch>
         <Route exact path={process.env.PUBLIC_URL + '/'} component={HomePage} />
+        <Route
+          exact
+          path={process.env.PUBLIC_URL + '/countries'}
+          component={Countries}
+        />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

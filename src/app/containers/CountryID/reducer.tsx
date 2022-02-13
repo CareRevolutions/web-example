@@ -1,21 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CountriesState } from './types';
+import { CountryIDState } from './types';
 
-export const key = 'countries';
+export const key = 'countryID';
 
-export const initialState: CountriesState = {
-  countries: [],
+export const initialState: CountryIDState = {
+  countryID: [],
   error: undefined,
   isLoading: false,
 };
 
-export const countriesReducer = createReducer(initialState, {
+export const countryIDReducer = createReducer(initialState, {
   FETCH_COUNTRYID_REQUEST: (state, action) => {
     state.isLoading = true;
   },
   FETCH_COUNTRYID_SUCCESS: (state, action) => {
     state.isLoading = false;
-    state.countries = action.payload.countries;
+    state.countryID = action.payload.countryID;
   },
   FETCH_COUNTRYID_ERROR: (state, action) => {
     state.isLoading = false;

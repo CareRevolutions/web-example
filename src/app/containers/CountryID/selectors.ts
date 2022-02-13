@@ -4,19 +4,19 @@ import { RootState } from 'types';
 import { initialState } from './reducer';
 
 // First select the relevant part from the state
-const selectDomain = (state: RootState) => state.countries || initialState;
+const selectDomain = (state: RootState) => state.countryID || initialState;
 
 export const selectLoading = createSelector(
   [selectDomain],
-  countriesState => countriesState.isLoading,
+  countryIDState => countryIDState.isLoading,
 );
 
 export const selectError = createSelector(
   [selectDomain],
-  countriesState => countriesState.error,
+  countryIDState => countryIDState.error,
 );
 
-export const selectCountries = createSelector(
+export const selectCountryID = createSelector(
   [selectDomain],
-  countriesState => countriesState.countries,
+  countryIDState => countryIDState.countryID,
 );

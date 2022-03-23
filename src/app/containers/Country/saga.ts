@@ -8,12 +8,14 @@ export function* fetchCountry(action: FetchCountryAction) {
   const { countryId } = action.payload;
   const requestURL = `https://api.carerev.com/api/v1/countries/${countryId}`;
 
-  try {
-    const response = yield call(request, requestURL);
-    yield put(actions.fetchCountrySuccess(response));
-  } catch (err: any) {
-    yield put(actions.fetchCountryError(err.toString()));
+  const response = yield call(request, requestURL);
+  // If there is an error, return the error message
+  if (response.error) {
+    yield put(actions.fetchCountryError(response.error));
+    return;
   }
+  // Otherwise, return the response
+  yield put(actions.fetchCountrySuccess(response));
 }
 
 /**

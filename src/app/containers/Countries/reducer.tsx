@@ -12,10 +12,12 @@ export const initialState: CountriesState = {
 export const countriesReducer = createReducer(initialState, {
   FETCH_COUNTRIES_REQUEST: state => {
     state.isLoading = true;
+    state.error = '';
   },
   FETCH_COUNTRIES_SUCCESS: (state, action) => {
     state.isLoading = false;
     state.countries = action.payload.countries;
+    state.error = '';
   },
   FETCH_COUNTRIES_ERROR: (state, action) => {
     state.isLoading = false;

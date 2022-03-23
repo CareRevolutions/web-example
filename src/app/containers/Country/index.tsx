@@ -8,7 +8,6 @@ import { actions } from './actions';
 import { selectCountry, selectLoading, selectError } from './selectors';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import { PageWrapper } from 'app/components/PageWrapper';
-import { NotFoundPage } from '../NotFoundPage/Loadable';
 
 export function Country({ match }) {
   useInjectReducer({ key: key, reducer: countryReducer });
@@ -39,9 +38,13 @@ export function Country({ match }) {
           </h3>
         </CountryDetails>
       )}
-      {error && <NotFoundPage />}
+      {error && <ErrorText>{error}</ErrorText>}
     </PageWrapper>
   );
 }
 
 const CountryDetails = styled.div``;
+
+const ErrorText = styled.span`
+  color: ${p => p.theme.text};
+`;

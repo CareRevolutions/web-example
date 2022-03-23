@@ -21,22 +21,6 @@ function parseJSON(response: Response) {
 }
 
 /**
- * Checks if a network request came back fine, and throws an error if not
- *
- * @param  {object} response   A response from a network request
- *
- * @return {object|undefined} Returns either the response, or throws an error
- */
-function checkStatus(response: Response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const error = new ResponseError(response);
-  error.response = response;
-  throw error;
-}
-
-/**
  * Requests a URL, returning a promise
  *
  * @param  {string} url       The URL we want to request
@@ -44,11 +28,20 @@ function checkStatus(response: Response) {
  *
  * @return {object}           The response data
  */
-export async function request(
-  url: string,
-  options?: RequestInit,
-): Promise<{} | { err: ResponseError }> {
-  const fetchResponse = await fetch(url, options);
-  const response = checkStatus(fetchResponse);
-  return parseJSON(response);
+export async function request(url: string, options?: RequestInit) {
+  try {
+    // Fetch data from the API
+    const fetchResponse = await fetch(url, options);
+    //  Try to parse the response as JSON
+    const parsedResponse = await parseJSON(fetchResponse);
+    const error = parsedResponse.error_message;
+    // If there is an error, return the error message, ottherwise return the response
+    if (error) return { error };
+    // Otherwise, return the response
+    return parsedResponse;
+  } catch (error) {
+    // If there is no body or the body is not JSON, return a genereic error message.
+    console.log(error); // Log the error to the console or 3rd party service like sentry.io
+    return { error: 'Unkown error occured' };
+  }
 }

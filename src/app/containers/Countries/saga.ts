@@ -5,17 +5,13 @@ import { actions } from './actions';
 export function* fetchCountries() {
   const requestURL = `https://api.carerev.com/api/v1/countries`;
 
-  try {
-    const { countries } = yield call(request, requestURL);
+  const { countries, error } = yield call(request, requestURL);
 
-    if (countries?.length > 0) {
-      yield put(actions.fetchCountriesSuccess(countries));
-    } else {
-      yield put(actions.fetchCountriesError('No countries found.'));
-    }
-  } catch (err: any) {
-    yield put(actions.fetchCountriesError(err.toString()));
+  if (error || countries?.length === 0) {
+    yield put(actions.fetchCountriesError(error || 'No countries found.'));
+    return;
   }
+  yield put(actions.fetchCountriesSuccess(countries));
 }
 
 /**

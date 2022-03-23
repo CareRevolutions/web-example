@@ -7,37 +7,35 @@ import { key, countryReducer } from './reducer';
 import { actions } from './actions';
 import { selectCountry, selectLoading, selectError } from './selectors';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
-import { Link } from 'app/components/Link';
 import { PageWrapper } from 'app/components/PageWrapper';
 
-export function Country() {
+export function Country({ match }) {
   useInjectReducer({ key: key, reducer: countryReducer });
   useInjectSaga({ key: key, saga });
 
+  const countryId = match.params.id;
+
+  // Redux state
   const { name, currencyCode } = useSelector(selectCountry);
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log('Country: useEffect');
 
-    dispatch(actions.fetchCountry());
-  }, [dispatch]);
+  useEffect(() => {
+    dispatch(actions.fetchCountry({ countryId }));
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <PageWrapper>
       <h1>Country</h1>
       {isLoading && <LoadingIndicator small />}
-
-      {name || currencyCode ? (
-        <CountryDetails>
-          <h2>{name}</h2>
-          <p>{currencyCode}</p>
-        </CountryDetails>
-      ) : error ? (
-        <ErrorText>{error}</ErrorText>
-      ) : null}
+      <CountryDetails>
+        <h2>{name}</h2>
+        <p>{currencyCode}</p>
+      </CountryDetails>
+      {error ? <ErrorText>{error}</ErrorText> : null}
     </PageWrapper>
   );
 }

@@ -13,7 +13,7 @@ export function* fetchCountries() {
     } else {
       yield put(actions.fetchCountriesError('No countries found.'));
     }
-  } catch (err) {
+  } catch (err: any) {
     yield put(actions.fetchCountriesError(err.toString()));
   }
 }

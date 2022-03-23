@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
+import { FetchCountry } from './types';
 
-const fetchCountry = createAction('FETCH_COUNTRY_REQUEST');
+const fetchCountry = createAction<FetchCountry>('FETCH_COUNTRY_REQUEST');
 
 const fetchCountrySuccess = createAction('FETCH_COUNTRY_SUCCESS', response => {
   const { name, currency_code: currencyCode } = response;

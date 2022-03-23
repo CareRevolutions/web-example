@@ -5,12 +5,12 @@ export const key = 'countries';
 
 export const initialState: CountriesState = {
   countries: [],
-  error: undefined,
+  error: '',
   isLoading: false,
 };
 
 export const countriesReducer = createReducer(initialState, {
-  FETCH_COUNTRIES_REQUEST: (state, action) => {
+  FETCH_COUNTRIES_REQUEST: state => {
     state.isLoading = true;
   },
   FETCH_COUNTRIES_SUCCESS: (state, action) => {

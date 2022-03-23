@@ -3,38 +3,38 @@ import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { saga } from './saga';
-import { key, countriesReducer } from './reducer';
+import { key, countryReducer } from './reducer';
 import { actions } from './actions';
-import { selectCountries, selectLoading, selectError } from './selectors';
+import { selectCountry, selectLoading, selectError } from './selectors';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import { Link } from 'app/components/Link';
 import { PageWrapper } from 'app/components/PageWrapper';
 
-export function Countries() {
-  useInjectReducer({ key: key, reducer: countriesReducer });
+export function Country() {
+  useInjectReducer({ key: key, reducer: countryReducer });
   useInjectSaga({ key: key, saga });
 
-  const countries = useSelector(selectCountries);
+  const { name, currencyCode } = useSelector(selectCountry);
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(actions.fetchCountries());
+    console.log('Country: useEffect');
+
+    dispatch(actions.fetchCountry());
   }, [dispatch]);
 
   return (
     <PageWrapper>
-      <h1>Countries</h1>
+      <h1>Country</h1>
       {isLoading && <LoadingIndicator small />}
-      {countries?.length > 0 ? (
-        <List>
-          {countries.map(country => (
-            <Country key={country.id}>
-              <Link to={`/countries/${country.id}`}>{country.name}</Link>
-            </Country>
-          ))}
-        </List>
+
+      {name || currencyCode ? (
+        <CountryDetails>
+          <h2>{name}</h2>
+          <p>{currencyCode}</p>
+        </CountryDetails>
       ) : error ? (
         <ErrorText>{error}</ErrorText>
       ) : null}
@@ -42,12 +42,8 @@ export function Countries() {
   );
 }
 
-const Country = styled.li`
-  color: blue;
-`;
-
 const ErrorText = styled.span`
   color: ${p => p.theme.text};
 `;
 
-const List = styled.div``;
+const CountryDetails = styled.div``;

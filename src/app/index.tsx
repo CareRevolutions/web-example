@@ -14,6 +14,7 @@ import { GlobalStyle } from '../styles/global-styles';
 
 import { HomePage } from './containers/HomePage/Loadable';
 import { NotFoundPage } from './containers/NotFoundPage/Loadable';
+import { Country } from './containers/Country';
 import { Countries } from './containers/Countries';
 import { useTranslation } from 'react-i18next';
 
@@ -33,6 +34,11 @@ export function App() {
           exact
           path={process.env.PUBLIC_URL + '/countries'}
           component={Countries}
+        />
+        <Route
+          exact
+          path={process.env.PUBLIC_URL + '/countries/:id'}
+          component={Country}
         />
         <Route component={NotFoundPage} />
       </Switch>

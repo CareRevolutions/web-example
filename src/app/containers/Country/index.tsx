@@ -8,6 +8,7 @@ import { actions } from './actions';
 import { selectCountry, selectLoading, selectError } from './selectors';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import { PageWrapper } from 'app/components/PageWrapper';
+import { NotFoundPage } from '../NotFoundPage/Loadable';
 
 export function Country({ match }) {
   useInjectReducer({ key: key, reducer: countryReducer });
@@ -29,19 +30,18 @@ export function Country({ match }) {
 
   return (
     <PageWrapper>
-      <h1>Country</h1>
       {isLoading && <LoadingIndicator small />}
-      <CountryDetails>
-        <h2>{name}</h2>
-        <p>{currencyCode}</p>
-      </CountryDetails>
-      {error ? <ErrorText>{error}</ErrorText> : null}
+      {!error && !isLoading && (
+        <CountryDetails>
+          <h1>Country</h1>
+          <h3>
+            {name}, {currencyCode}
+          </h3>
+        </CountryDetails>
+      )}
+      {error && <NotFoundPage />}
     </PageWrapper>
   );
 }
-
-const ErrorText = styled.span`
-  color: ${p => p.theme.text};
-`;
 
 const CountryDetails = styled.div``;

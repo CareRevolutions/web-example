@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors'
 import { saga } from './saga'
-import { key, countriesReducer } from './reducer'
-import { actions } from './actions'
+import { key, reducer, actions } from './slice'
 import { selectCountries, selectLoading, selectError } from './selectors'
 import { LoadingIndicator } from 'app/components/LoadingIndicator'
-import { Link } from 'app/components/Link'
-import { PageWrapper } from 'app/components/PageWrapper'
 
 export const Countries = () => {
-  useInjectReducer({ key: key, reducer: countriesReducer })
+  useInjectReducer({ key: key, reducer: reducer })
   useInjectSaga({ key: key, saga })
 
   const countries = useSelector(selectCountries)
@@ -23,7 +21,14 @@ export const Countries = () => {
   }, [dispatch])
 
   return (
-    <PageWrapper>
+    <div
+      style={{
+        boxSizing: 'content-box',
+        margin: '0 auto',
+        padding: '0 1.5rem',
+        width: '960px',
+      }}
+    >
       <h1>Countries</h1>
       {isLoading && <LoadingIndicator small />}
       {countries?.length > 0 && (
@@ -36,6 +41,6 @@ export const Countries = () => {
         </ul>
       )}
       {error && <div>{error}</div>}
-    </PageWrapper>
+    </div>
   )
 }

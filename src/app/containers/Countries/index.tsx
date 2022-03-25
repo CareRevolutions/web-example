@@ -35,12 +35,14 @@ export const Countries = () => {
         <ul>
           {countries.map(country => (
             <li key={country.id}>
-              <Link to={`/country/${country.id}`}>{country.name}</Link>
+              <Link data-testid="country" to={`/country/${country.id}`}>
+                {country.name}
+              </Link>
             </li>
           ))}
         </ul>
       )}
-      {error && <div>{error}</div>}
+      {error && <div data-testid="error">{error}</div>}
     </div>
   )
 }

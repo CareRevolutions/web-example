@@ -1,48 +1,54 @@
-import * as React from 'react';
-import styled from 'styled-components/macro';
-import { P } from './P';
-import { Link } from 'app/components/Link';
-import { Helmet } from 'react-helmet-async';
-import { StyleConstants } from 'styles/StyleConstants';
+import * as React from 'react'
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import { StyleConstants } from 'styles/StyleConstants'
 
-export function NotFoundPage() {
+export const NotFoundPage = () => {
   return (
     <>
       <Helmet>
         <title>404 Page Not Found</title>
         <meta name="description" content="Page not found" />
       </Helmet>
-      <Wrapper>
-        <Title>
+      <div
+        style={{
+          alignItems: 'center',
+          color: 'orangered',
+          display: 'flex',
+          flexDirection: 'column',
+          height: `calc(100vh - ${StyleConstants.NAV_BAR_HEIGHT})`,
+          justifyContent: 'center',
+          minHeight: '320px',
+        }}
+      >
+        <h1
+          style={{
+            marginTop: '-8vh',
+            fontWeight: 'bold',
+            fontSize: '3.375rem',
+          }}
+        >
           4
-          <span role="img" aria-label="Crying Face">
+          <span
+            aria-label="Crying Face"
+            role="img"
+            style={{ fontSize: '3.125rem' }}
+          >
             😢
           </span>
           4
-        </Title>
-        <P>Page not found.</P>
+        </h1>
+        <p
+          style={{
+            fontSize: '1rem',
+            lineHeight: '1.5',
+            margin: '0.625rem 0 1.5rem 0',
+          }}
+        >
+          Page not found.
+        </p>
         <Link to={process.env.PUBLIC_URL + '/'}>Return to Home Page</Link>
-      </Wrapper>
+      </div>
     </>
-  );
+  )
 }
-
-const Wrapper = styled.div`
-  height: calc(100vh - ${StyleConstants.NAV_BAR_HEIGHT});
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 320px;
-`;
-
-const Title = styled.div`
-  margin-top: -8vh;
-  font-weight: bold;
-  color: ${p => p.theme.text};
-  font-size: 3.375rem;
-
-  span {
-    font-size: 3.125rem;
-  }
-`;

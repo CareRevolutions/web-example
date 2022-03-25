@@ -36,6 +36,11 @@ function checkStatus(response: Response) {
   throw error
 }
 
+export function getErrorMessage(error: unknown) {
+  if (error instanceof Error) return error.message
+  return String(error)
+}
+
 /**
  * Requests a URL, returning a promise
  *

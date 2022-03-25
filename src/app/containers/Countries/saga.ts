@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { request } from 'utils/request'
+import { getErrorMessage, request } from 'utils/request'
 import { actions } from './slice'
 
 export function* fetchCountries() {
@@ -13,8 +13,8 @@ export function* fetchCountries() {
     } else {
       yield put(actions.fetchCountriesError('No countries found.'))
     }
-  } catch (err: any) {
-    yield put(actions.fetchCountriesError(err.toString()))
+  } catch (err) {
+    yield put(actions.fetchCountriesError(getErrorMessage(err)))
   }
 }
 

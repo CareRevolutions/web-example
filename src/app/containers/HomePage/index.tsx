@@ -1,22 +1,28 @@
-import * as React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { PageWrapper } from 'app/components/PageWrapper';
-import { Link } from 'app/components/Link';
+import * as React from 'react'
+import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 
-export function HomePage() {
+export const HomePage = () => {
   return (
     <>
       <Helmet>
         <title>Home Page</title>
         <meta
-          name="description"
-          content="A React Boilerplate application homepage"
+          name="CareRev Currency App"
+          content="Find the Currency for Any Country"
         />
       </Helmet>
-      <PageWrapper>
-        <h1>CareRev Sample App</h1>
+      <div
+        style={{
+          boxSizing: 'content-box',
+          margin: '0 auto',
+          padding: '0 1.5rem',
+          width: '960px',
+        }}
+      >
+        <h1>CareRev Currency App</h1>
         <Link to="/countries">Show Countries</Link>
-      </PageWrapper>
+      </div>
     </>
-  );
+  )
 }

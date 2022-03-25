@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import { StyleConstants } from './StyleConstants';
+import { createGlobalStyle } from 'styled-components'
+import { StyleConstants } from './StyleConstants'
 /* istanbul ignore next */
 export const GlobalStyle = createGlobalStyle`
   html,
@@ -33,4 +33,4 @@ export const GlobalStyle = createGlobalStyle`
     width: 1.5rem;
     height: 1.5rem;
   }
-`;
+`

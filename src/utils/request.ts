@@ -1,9 +1,9 @@
 export class ResponseError extends Error {
-  public response: Response;
+  public response: Response
 
   constructor(response: Response) {
-    super(response.statusText);
-    this.response = response;
+    super(response.statusText)
+    this.response = response
   }
 }
 /**
@@ -15,9 +15,9 @@ export class ResponseError extends Error {
  */
 function parseJSON(response: Response) {
   if (response.status === 204 || response.status === 205) {
-    return null;
+    return null
   }
-  return response.json();
+  return response.json()
 }
 
 /**
@@ -29,11 +29,16 @@ function parseJSON(response: Response) {
  */
 function checkStatus(response: Response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   }
-  const error = new ResponseError(response);
-  error.response = response;
-  throw error;
+  const error = new ResponseError(response)
+  error.response = response
+  throw error
+}
+
+export function getErrorMessage(error: unknown) {
+  if (error instanceof Error) return error.message
+  return String(error)
 }
 
 /**
@@ -48,7 +53,7 @@ export async function request(
   url: string,
   options?: RequestInit,
 ): Promise<{} | { err: ResponseError }> {
-  const fetchResponse = await fetch(url, options);
-  const response = checkStatus(fetchResponse);
-  return parseJSON(response);
+  const fetchResponse = await fetch(url, options)
+  const response = checkStatus(fetchResponse)
+  return parseJSON(response)
 }

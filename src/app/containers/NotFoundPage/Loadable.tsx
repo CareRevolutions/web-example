@@ -2,9 +2,9 @@
  * Asynchronously loads the component for NotFoundPage
  */
 
-import * as React from 'react';
-import { lazyLoad } from 'utils/loadable';
-import { LoadingIndicator } from 'app/components/LoadingIndicator';
+import * as React from 'react'
+import { lazyLoad } from 'utils/loadable'
+import { LoadingIndicator } from 'app/components/LoadingIndicator'
 
 export const NotFoundPage = lazyLoad(
   () => import('./index'),
@@ -12,4 +12,4 @@ export const NotFoundPage = lazyLoad(
   {
     fallback: <LoadingIndicator />,
   },
-);
+)

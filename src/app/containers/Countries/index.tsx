@@ -34,6 +34,9 @@ export function Countries() {
               <Link to={`/country/${country.id}`}>{country.name}</Link>
             </Country>
           ))}
+          <Country key='invalid'>
+            <Link to='/country/id'>Invalid Country</Link>
+          </Country>
         </List>
       ) : error ? (
         <ErrorText>{error}</ErrorText>
